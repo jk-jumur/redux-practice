@@ -86,3 +86,8 @@ const addUser = () => {
 
   store.dispatch(decrementCounter());
   store.dispatch(decrementCounter());
+
+
+  //complete counter app
+
+  // state
