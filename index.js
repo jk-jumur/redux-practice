@@ -206,4 +206,138 @@ const store = createStore(counterReducer);
 
 store.dispatch(addUserAction("Jumur"));
 store.dispatch(addUserAction("Khusbu"));
+
+
+//MULTIPLE REDUCERS
+
+//product 
+const GET_PRODUCTS = 'GET_PRODUCTS';
+const ADD_PRODUCTS = 'ADD_PRODUCTS';
+
+//product state
+
+const initialProductState = {
+       products: ["suger", "salt"],
+       numberofProducts : 2,
+}
+
+
+//product actions
+
+const  getProducts = () => {
+         return {
+            type : GET_PRODUCTS,
+         }
+}
+
+
+const addProducts = (product) => {
+       
+     return {
+            
+          type : ADD_PRODUCTS,
+          payload : product,
+     }
+}
+
+//productReducer
+
+const productReducer = (state = initialProductState, action) => {
+       
+     switch(action.type) {
+           case GET_PRODUCTS :
+
+           return {
+                 ...state,
+           };
+
+           case ADD_PRODUCTS : 
+
+            return {
+                 
+               products : [...state.products, action.payload],
+               numberofProducts : state.numberofProducts  + 1,
+            };
+
+            default : state;
+     }
+}
+
+// product store
+
+const store1 = createStore(productReducer);
+store1.subscribe(() => {
+       console.log(store1.getState());
+})
+
+store1.dispatch(getProducts());
+store1.dispatch(addProducts("rice"));
+
+
+// Cart items
   
+  const GET_CART_ITEMS = 'GET_CART_ITEMS';
+  const ADD_CART_ITEMS = 'ADD_CART_ITEMS';
+
+//cart state
+
+  const initialCartState = {
+       
+     cartItems : ["sugar", "salt"],
+     numberofCartItems : 2,
+
+  }
+
+  //cart actions
+
+  const getCartItems = () => {
+       return {
+            
+          type : GET_CART_ITEMS,
+       }
+  }
+
+  const addCartItems = (item) => {
+       
+     return {
+           
+          type : ADD_CART_ITEMS,
+          payload : item, 
+     }
+  }
+
+//cart reducer
+
+  const cartReducer = (state = initialCartState, action) => {
+       
+     switch(action.type) {
+            
+          case GET_CART_ITEMS : 
+           
+          return {
+                ...state,
+          };
+
+          case ADD_CART_ITEMS : 
+           return {
+               cartItems : [...state.cartItems, action.payload],
+                numberofCartItems : state.numberofCartItems + 1,
+           }
+
+           default :
+           state;
+     }
+  }
+
+
+
+//cart store
+
+ const store2 = createStore(cartReducer);
+   store2.subscribe(() => {
+       console.log(store2.getState());
+   })
+
+  store2.dispatch(getCartItems()); 
+  store2.dispatch(addCartItems("nachos"));
+  store2.dispatch(addCartItems("ramen"));
